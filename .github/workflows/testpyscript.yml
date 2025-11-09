@@ -1,24 +1,26 @@
 name: Test Py Script
 
-on: [push]
+on:
+  workflow_dispatch:
+  # push:
 
 jobs:
-    main:
-      runs-on: ubuntu-latest
-      steps: 
-        - name: Checkout Repo
-          uses: actions/checkout@v4
-        - name: Run script
-          run: python3 ./hello.py
-        - name: Debug – list workspace
-          run: ls -la
-        - name: Upload artifact for reuse
-          uses: actions/upload-artifact@v4
-          with:
-           name: pyfile
-           path: ./hello.py
+  main:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+      - name: Run script
+        run: python3 ./hello.py
+      - name: Debug – list workspace
+        run: ls -la
+      - name: Upload artifact for reuse
+        uses: actions/upload-artifact@v4
+        with:
+          name: pyfile
+          path: ./hello.py
 
-    publish:
-        needs: main
-        uses: ./.github/workflows/artifactpy.yml
-        secrets: inherit
+  publish:
+    needs: main
+    uses: ./.github/workflows/artifactpy.yml
+    secrets: inherit

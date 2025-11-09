@@ -1,0 +1,23 @@
+name: Checkov
+
+on:
+    push:
+
+jobs:
+    checkov:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v5
+
+            - name: Set up Python
+              uses: actions/setup-python@v4
+
+              with:
+                  python-version: 3.9
+
+            - name: Test with Checkov
+              id: checkov
+              uses: bridgecrewio/checkov-action@master
+              with:
+                  directory: ./
